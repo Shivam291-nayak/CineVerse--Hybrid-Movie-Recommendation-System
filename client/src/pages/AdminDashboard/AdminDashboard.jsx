@@ -15,12 +15,21 @@ function AdminDashboard() {
 
   return (
     <div className="admin-dashboard-page">
-      <h1>Admin Dashboard</h1>
+      <div className="dashboard-header">
+        <span className="movies-eyebrow">Admin</span>
+        <h1>Admin Dashboard</h1>
+        <p>Manage your catalog and monitor activity.</p>
+      </div>
+
       <div className="stats-row">
         <StatsCard label="Total Movies" value={stats.totalMovies} icon="🎬" />
         <StatsCard label="Total Users" value={stats.totalUsers} icon="👥" />
       </div>
-      <Link to="/admin/add-movie" className="add-movie-btn">+ Add New Movie</Link>
+
+      <Link to="/admin/add-movie" className="add-movie-btn">
+        <i className="bi bi-plus-lg"></i>
+        Add New Movie
+      </Link>
     </div>
   )
 }

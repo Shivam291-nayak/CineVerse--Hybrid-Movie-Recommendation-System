@@ -19,9 +19,20 @@ function Watchlist() {
 
   return (
     <div className="watchlist-page">
-      <h1>My Watchlist</h1>
+      <div className="watchlist-header">
+        <span className="movies-eyebrow">Your List</span>
+        <h1>
+          <i className="bi bi-bookmark-fill"></i>
+          My Watchlist
+        </h1>
+      </div>
+
       {items.length === 0 ? (
-        <p>Your watchlist is empty. Start adding movies!</p>
+        <div className="watchlist-empty">
+          <i className="bi bi-bookmark-heart"></i>
+          <p>Your watchlist is empty.</p>
+          <span>Start adding movies you want to watch later!</span>
+        </div>
       ) : (
         <div className="movie-grid">
           {items.map((item) => (

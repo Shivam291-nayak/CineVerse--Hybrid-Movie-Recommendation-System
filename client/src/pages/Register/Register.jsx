@@ -24,14 +24,43 @@ function Register() {
 
   return (
     <div className="auth-page">
+      <div className="auth-backdrop"></div>
+
+      <Link to="/" className="auth-logo">
+        <span>Cine</span>Galaxy
+      </Link>
+
       <form className="auth-form" onSubmit={handleSubmit}>
-        <h2>Register</h2>
-        {error && <p className="auth-error">{error}</p>}
-        <input type="text" placeholder="Full Name" value={name} onChange={(e) => setName(e.target.value)} required />
-        <input type="email" placeholder="Email" value={email} onChange={(e) => setEmail(e.target.value)} required />
-        <input type="password" placeholder="Password" value={password} onChange={(e) => setPassword(e.target.value)} required />
-        <button type="submit">Register</button>
-        <p>Already have an account? <Link to="/login">Login</Link></p>
+        <h2>Create your account</h2>
+        <p className="auth-subtitle">Join CineGalaxy and start building your watchlist.</p>
+
+        {error && (
+          <p className="auth-error">
+            <i className="bi bi-exclamation-circle"></i> {error}
+          </p>
+        )}
+
+        <div className="auth-field">
+          <i className="bi bi-person"></i>
+          <input type="text" placeholder="Full name" value={name} onChange={(e) => setName(e.target.value)} required />
+        </div>
+
+        <div className="auth-field">
+          <i className="bi bi-envelope"></i>
+          <input type="email" placeholder="Email address" value={email} onChange={(e) => setEmail(e.target.value)} required />
+        </div>
+
+        <div className="auth-field">
+          <i className="bi bi-lock"></i>
+          <input type="password" placeholder="Password" value={password} onChange={(e) => setPassword(e.target.value)} required />
+        </div>
+
+        <button type="submit" className="auth-submit">
+          Create account
+          <i className="bi bi-arrow-right"></i>
+        </button>
+
+        <p className="auth-switch">Already have an account? <Link to="/login">Login</Link></p>
       </form>
     </div>
   )

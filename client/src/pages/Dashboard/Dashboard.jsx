@@ -16,7 +16,12 @@ function Dashboard() {
 
   return (
     <div className="dashboard-page">
-      <h1>Welcome back, {user?.name}!</h1>
+      <div className="dashboard-header">
+        <span className="movies-eyebrow">Dashboard</span>
+        <h1>Welcome back, {user?.name}!</h1>
+        <p>Here's a quick snapshot of your activity.</p>
+      </div>
+
       <div className="stats-row">
         <StatsCard label="Watchlist Items" value={stats.watchlistCount} icon="📺" />
         <StatsCard label="Movies Watched" value={stats.moviesWatched} icon="🎬" />

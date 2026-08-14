@@ -1,6 +1,94 @@
+.watchlist-page {
+  min-height: 100vh;
+  padding: 110px 6% 60px;
+
+  background:
+    radial-gradient(circle at 15% 5%, rgba(229, 9, 20, 0.07), transparent 35%),
+    #03050a;
+
+  color: #ffffff;
+}
+
+.watchlist-header {
+  margin-bottom: 30px;
+}
+
+.movies-eyebrow {
+  display: inline-block;
+  margin-bottom: 10px;
+
+  padding: 5px 12px;
+
+  border-radius: 20px;
+  background: rgba(229, 9, 20, 0.12);
+  border: 1px solid rgba(229, 9, 20, 0.35);
+
+  color: #ff6b6b;
+  font-size: 11px;
+  font-weight: 800;
+  letter-spacing: 1.4px;
+  text-transform: uppercase;
+}
+
+.watchlist-header h1 {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+
+  margin: 0;
+  font-size: 30px;
+  font-weight: 800;
+  letter-spacing: -1px;
+}
+
+.watchlist-header h1 i {
+  color: #e50914;
+  font-size: 24px;
+}
+
 .movie-grid {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
-  gap: 1.2rem;
+  gap: 1.4rem;
   margin-top: 1.5rem;
+}
+
+.watchlist-empty {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+
+  padding: 90px 20px;
+
+  color: #6b7280;
+  text-align: center;
+}
+
+.watchlist-empty i {
+  font-size: 44px;
+  color: #e50914;
+  opacity: 0.6;
+  margin-bottom: 6px;
+}
+
+.watchlist-empty p {
+  margin: 0;
+  color: #ffffff;
+  font-size: 16px;
+  font-weight: 700;
+}
+
+.watchlist-empty span {
+  font-size: 13px;
+}
+
+@media (max-width: 600px) {
+  .watchlist-page {
+    padding: 100px 16px 40px;
+  }
+
+  .watchlist-header h1 {
+    font-size: 24px;
+  }
 }

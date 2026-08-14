@@ -23,10 +23,21 @@ function Movies() {
 
   return (
     <div className="movies-page">
-      <h1>Browse Movies</h1>
-      <SearchBar onSearch={fetchMovies} />
+      <div className="movies-page-header">
+        <span className="movies-eyebrow">Browse</span>
+        <h1>All Movies</h1>
+        <p>Explore the full catalog and find your next watch.</p>
+
+        <SearchBar onSearch={fetchMovies} />
+      </div>
+
       {loading ? (
         <Loader />
+      ) : movies.length === 0 ? (
+        <div className="movies-empty">
+          <i className="bi bi-film"></i>
+          <p>No movies found. Try a different search.</p>
+        </div>
       ) : (
         <div className="movie-grid">
           {movies.map((movie) => (

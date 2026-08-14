@@ -27,19 +27,53 @@ function MovieDetails() {
   }
 
   if (loading) return <Loader />
-  if (!movie) return <p>Movie not found.</p>
+  if (!movie) return <p className="details-not-found">Movie not found.</p>
 
   return (
-    <div className="movie-details">
-      <img src={movie.poster || '/images/placeholder.png'} alt={movie.title} />
-      <div className="movie-info">
-        <h1>{movie.title}</h1>
-        <p className="genre">{movie.genre?.join(', ')}</p>
-        <p>{movie.description}</p>
-        <p><strong>Rating:</strong> ⭐ {movie.rating ?? 'N/A'}</p>
-        <p><strong>Release Year:</strong> {movie.releaseYear}</p>
-        <button onClick={addToWatchlist}>Add to Watchlist</button>
-        {message && <p className="details-message">{message}</p>}
+    <div className="movie-details-page">
+      <div
+        className="movie-details-backdrop"
+        style={{ backgroundImage: `url(${movie.backdrop || movie.poster || '/images/placeholder.png'})` }}
+      ></div>
+
+      <div className="movie-details">
+        <img src={movie.poster || '/images/placeholder.png'} alt={movie.title} />
+
+        <div className="movie-info">
+          <h1>{movie.title}</h1>
+
+          <div className="movie-info-meta">
+            <span className="rating-pill">
+              <i className="bi bi-star-fill"></i> {movie.rating ?? 'N/A'}
+            </span>
+            {movie.releaseYear && <span>{movie.releaseYear}</span>}
+            {movie.duration && <span>{movie.duration}</span>}
+          </div>
+
+          {movie.genre?.length > 0 && (
+            <div className="genre-tags">
+              {movie.genre.map((g) => (
+                <span key={g} className="genre-tag">{g}</span>
+              ))}
+            </div>
+          )}
+
+          <p className="movie-description">{movie.description}</p>
+
+          <div className="movie-details-actions">
+            <button className="watch-btn">
+              <i className="bi bi-play-fill"></i>
+              Watch Now
+            </button>
+
+            <button className="watchlist-btn" onClick={addToWatchlist}>
+              <i className="bi bi-plus-lg"></i>
+              Add to Watchlist
+            </button>
+          </div>
+
+          {message && <p className="details-message">{message}</p>}
+        </div>
       </div>
     </div>
   )

@@ -2,16 +2,23 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  padding: 3rem;
+  padding: 4rem;
+  min-height: 200px;
 }
 
 .loader-spinner {
-  width: 40px;
-  height: 40px;
-  border: 4px solid #333;
-  border-top: 4px solid #e50914;
+  position: relative;
+
+  width: 46px;
+  height: 46px;
+
+  border: 3px solid rgba(255, 255, 255, 0.08);
+  border-top: 3px solid #e50914;
+  border-right: 3px solid #ff2b3a;
   border-radius: 50%;
-  animation: spin 0.8s linear infinite;
+
+  animation: spin 0.85s cubic-bezier(0.5, 0.1, 0.5, 0.9) infinite;
+  box-shadow: 0 0 24px rgba(229, 9, 20, 0.2);
 }
 
 @keyframes spin {

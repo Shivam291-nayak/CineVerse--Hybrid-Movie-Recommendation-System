@@ -1,25 +1,158 @@
+.add-movie-page {
+  min-height: 100vh;
+  padding: 110px 6% 60px;
+
+  background:
+    radial-gradient(circle at 15% 5%, rgba(229, 9, 20, 0.07), transparent 35%),
+    #03050a;
+
+  color: #ffffff;
+}
+
+.add-movie-header {
+  max-width: 560px;
+  margin-bottom: 30px;
+}
+
+.movies-eyebrow {
+  display: inline-block;
+  margin-bottom: 10px;
+
+  padding: 5px 12px;
+
+  border-radius: 20px;
+  background: rgba(229, 9, 20, 0.12);
+  border: 1px solid rgba(229, 9, 20, 0.35);
+
+  color: #ff6b6b;
+  font-size: 11px;
+  font-weight: 800;
+  letter-spacing: 1.4px;
+  text-transform: uppercase;
+}
+
+.add-movie-header h1 {
+  margin: 0 0 6px;
+  font-size: 28px;
+  font-weight: 800;
+  letter-spacing: -1px;
+}
+
+.add-movie-header p {
+  margin: 0;
+  color: #9a9fab;
+  font-size: 14px;
+}
+
+.auth-error {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+
+  max-width: 560px;
+  margin: 0 0 20px;
+  padding: 10px 12px;
+
+  border-radius: 8px;
+  background: rgba(229, 9, 20, 0.1);
+  border: 1px solid rgba(229, 9, 20, 0.3);
+
+  color: #ff6b6b;
+  font-size: 13px;
+}
+
 .add-movie-form {
   display: flex;
   flex-direction: column;
-  gap: 0.9rem;
-  max-width: 500px;
-  margin-top: 1rem;
+  gap: 14px;
+
+  max-width: 560px;
+
+  padding: 28px;
+
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 16px;
+}
+
+.add-movie-form-row {
+  display: flex;
+  gap: 14px;
+}
+
+.add-movie-form-row input {
+  flex: 1;
 }
 
 .add-movie-form input,
 .add-movie-form textarea {
-  padding: 0.7rem;
-  border-radius: 4px;
-  border: 1px solid #333;
-  background: #1b1b2a;
-  color: white;
+  padding: 13px 16px;
+
+  border-radius: 9px;
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  background: rgba(0, 0, 0, 0.35);
+
+  color: #ffffff;
+  font-size: 14px;
+  font-family: inherit;
+
+  transition: border-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+.add-movie-form input::placeholder,
+.add-movie-form textarea::placeholder {
+  color: #6f7484;
+}
+
+.add-movie-form input:focus,
+.add-movie-form textarea:focus {
+  outline: none;
+  border-color: #e50914;
+  box-shadow: 0 0 0 4px rgba(229, 9, 20, 0.14);
+}
+
+.add-movie-form textarea {
+  min-height: 110px;
+  resize: vertical;
 }
 
 .add-movie-form button {
-  padding: 0.7rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+
+  height: 50px;
+  margin-top: 6px;
+
   border: none;
-  border-radius: 4px;
-  background: #e50914;
-  color: white;
+  border-radius: 9px;
+
+  background: linear-gradient(120deg, #ff2b3a, #e50914);
+  color: #ffffff;
+
+  font-size: 15px;
+  font-weight: 700;
+
   cursor: pointer;
+  transition: 0.25s ease;
+}
+
+.add-movie-form button:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 12px 28px rgba(229, 9, 20, 0.4);
+}
+
+@media (max-width: 600px) {
+  .add-movie-page {
+    padding: 100px 16px 40px;
+  }
+
+  .add-movie-form {
+    padding: 20px;
+  }
+
+  .add-movie-form-row {
+    flex-direction: column;
+  }
 }

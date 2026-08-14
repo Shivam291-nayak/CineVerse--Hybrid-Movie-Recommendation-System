@@ -11,6 +11,7 @@ function SearchBar({ onSearch }) {
 
   return (
     <form className="search-bar" onSubmit={handleSubmit}>
+      <i className="bi bi-search"></i>
       <input
         type="text"
         placeholder="Search movies..."

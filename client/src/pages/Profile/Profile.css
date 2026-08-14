@@ -1,10 +1,102 @@
-.profile-card {
-  background: #1b1b2a;
-  padding: 1.5rem;
-  border-radius: 8px;
-  max-width: 400px;
-  margin-top: 1rem;
+.profile-page {
+  min-height: 100vh;
+  padding: 110px 6% 60px;
+
+  background:
+    radial-gradient(circle at 15% 10%, rgba(229, 9, 20, 0.08), transparent 35%),
+    #03050a;
+
+  color: #ffffff;
+}
+
+.profile-header {
   display: flex;
-  flex-direction: column;
-  gap: 0.6rem;
+  align-items: center;
+  gap: 22px;
+
+  padding: 28px;
+  margin-bottom: 34px;
+
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 16px;
+}
+
+.profile-avatar-lg {
+  flex-shrink: 0;
+
+  width: 84px;
+  height: 84px;
+
+  border-radius: 50%;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  background: linear-gradient(135deg, #ff2b3a, #731014);
+
+  font-size: 32px;
+  font-weight: 800;
+
+  border: 3px solid rgba(255, 255, 255, 0.18);
+}
+
+.profile-header h1 {
+  margin: 0 0 6px;
+  font-size: 24px;
+  font-weight: 800;
+}
+
+.profile-email {
+  margin: 0 0 10px;
+  color: #9a9fab;
+  font-size: 13.5px;
+}
+
+.profile-role-badge {
+  display: inline-block;
+  padding: 4px 12px;
+
+  border-radius: 20px;
+  background: rgba(229, 9, 20, 0.14);
+  border: 1px solid rgba(229, 9, 20, 0.35);
+
+  color: #ff6b6b;
+  font-size: 11px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.6px;
+}
+
+.profile-section-title {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+
+  margin: 0 0 18px;
+
+  font-size: 18px;
+  font-weight: 750;
+}
+
+.profile-section-title i {
+  color: #e50914;
+}
+
+.profile-stats-row {
+  display: flex;
+  gap: 16px;
+  flex-wrap: wrap;
+}
+
+@media (max-width: 600px) {
+  .profile-page {
+    padding: 100px 16px 40px;
+  }
+
+  .profile-header {
+    flex-direction: column;
+    text-align: center;
+  }
 }

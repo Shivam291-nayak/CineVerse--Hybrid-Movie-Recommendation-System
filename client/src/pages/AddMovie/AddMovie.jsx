@@ -32,16 +32,33 @@ function AddMovie() {
 
   return (
     <div className="add-movie-page">
-      <h1>Add New Movie</h1>
-      {error && <p className="auth-error">{error}</p>}
+      <div className="add-movie-header">
+        <span className="movies-eyebrow">Admin</span>
+        <h1>Add New Movie</h1>
+        <p>Fill in the details to add a new title to the catalog.</p>
+      </div>
+
+      {error && (
+        <p className="auth-error">
+          <i className="bi bi-exclamation-circle"></i> {error}
+        </p>
+      )}
+
       <form className="add-movie-form" onSubmit={handleSubmit}>
         <input name="title" placeholder="Title" onChange={handleChange} required />
         <input name="genre" placeholder="Genre (comma separated)" onChange={handleChange} required />
         <textarea name="description" placeholder="Description" onChange={handleChange} required />
         <input name="poster" placeholder="Poster URL" onChange={handleChange} />
-        <input name="releaseYear" type="number" placeholder="Release Year" onChange={handleChange} />
-        <input name="rating" type="number" step="0.1" placeholder="Rating" onChange={handleChange} />
-        <button type="submit">Add Movie</button>
+
+        <div className="add-movie-form-row">
+          <input name="releaseYear" type="number" placeholder="Release Year" onChange={handleChange} />
+          <input name="rating" type="number" step="0.1" placeholder="Rating" onChange={handleChange} />
+        </div>
+
+        <button type="submit">
+          <i className="bi bi-plus-lg"></i>
+          Add Movie
+        </button>
       </form>
     </div>
   )
