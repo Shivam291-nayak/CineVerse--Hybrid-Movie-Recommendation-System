@@ -7,13 +7,16 @@ function Register() {
   const [name, setName] = useState('')
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
+  const [showPassword, setShowPassword] = useState(false)
   const [error, setError] = useState('')
+
   const { register } = useAuth()
   const navigate = useNavigate()
 
   const handleSubmit = async (e) => {
     e.preventDefault()
     setError('')
+
     try {
       await register(name, email, password)
       navigate('/dashboard')
@@ -32,7 +35,9 @@ function Register() {
 
       <form className="auth-form" onSubmit={handleSubmit}>
         <h2>Create your account</h2>
-        <p className="auth-subtitle">Join CineGalaxy and start building your watchlist.</p>
+        <p className="auth-subtitle">
+          Join CineGalaxy and start building your watchlist.
+        </p>
 
         {error && (
           <p className="auth-error">
@@ -42,25 +47,61 @@ function Register() {
 
         <div className="auth-field">
           <i className="bi bi-person"></i>
-          <input type="text" placeholder="Full name" value={name} onChange={(e) => setName(e.target.value)} required />
+          <input
+            type="text"
+            placeholder="Full name"
+            value={name}
+            onChange={(e) => setName(e.target.value)}
+            autoComplete="name"
+            required
+          />
         </div>
 
         <div className="auth-field">
           <i className="bi bi-envelope"></i>
-          <input type="email" placeholder="Email address" value={email} onChange={(e) => setEmail(e.target.value)} required />
+          <input
+            type="email"
+            placeholder="Email address"
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
+            autoComplete="email"
+            required
+          />
         </div>
 
-        <div className="auth-field">
-          <i className="bi bi-lock"></i>
-          <input type="password" placeholder="Password" value={password} onChange={(e) => setPassword(e.target.value)} required />
-        </div>
+        
+<div className="auth-field password-field">
+  <i className="bi bi-lock"></i>
+
+  <input
+    type={showPassword ? 'text' : 'password'}
+    placeholder="Password"
+    value={password}
+    onChange={(e) => setPassword(e.target.value)}
+    autoComplete="new-password"
+    minLength={6}
+    required
+  />
+
+  <button
+    type="button"
+    className="password-toggle"
+    onClick={() => setShowPassword((prev) => !prev)}
+    aria-label={showPassword ? 'Hide password' : 'Show password'}
+  >
+    {showPassword ? 'Hide' : 'Show'}
+  </button>
+</div>
+
 
         <button type="submit" className="auth-submit">
           Create account
           <i className="bi bi-arrow-right"></i>
         </button>
 
-        <p className="auth-switch">Already have an account? <Link to="/login">Login</Link></p>
+        <p className="auth-switch">
+          Already have an account? <Link to="/login">Login</Link>
+        </p>
       </form>
     </div>
   )

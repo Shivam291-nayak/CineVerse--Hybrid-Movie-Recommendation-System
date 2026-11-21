@@ -1,86 +1,378 @@
+
+/* ==========================================
+   CineVerse Admin Dashboard
+   ========================================== */
+
 .admin-dashboard-page {
   min-height: 100vh;
-  padding: 110px 6% 60px;
-
-  background:
-    radial-gradient(circle at 85% 5%, rgba(229, 9, 20, 0.07), transparent 35%),
-    #03050a;
-
-  color: #ffffff;
+  padding: 38px clamp(18px, 3vw, 48px) 60px;
+  background: #08090d;
+  color: #f5f5f7;
+  box-sizing: border-box;
 }
 
-.dashboard-header {
-  margin-bottom: 32px;
+.admin-dashboard-page *,
+.admin-dashboard-page *::before,
+.admin-dashboard-page *::after {
+  box-sizing: border-box;
 }
 
-.movies-eyebrow {
+.admin-dashboard-page .dashboard-header {
+  margin-bottom: 30px;
+}
+
+.admin-dashboard-page .movies-eyebrow {
   display: inline-block;
-  margin-bottom: 10px;
-
-  padding: 5px 12px;
-
-  border-radius: 20px;
-  background: rgba(229, 9, 20, 0.12);
-  border: 1px solid rgba(229, 9, 20, 0.35);
-
-  color: #ff6b6b;
-  font-size: 11px;
+  margin-bottom: 12px;
+  color: #ff3655;
+  font-size: 12px;
   font-weight: 800;
-  letter-spacing: 1.4px;
+  letter-spacing: 1.8px;
   text-transform: uppercase;
 }
 
-.dashboard-header h1 {
-  margin: 0 0 6px;
-  font-size: 30px;
+.admin-dashboard-page .dashboard-header h1 {
+  margin: 0 0 10px;
+  color: #fff;
+  font-size: clamp(28px, 3vw, 38px);
   font-weight: 800;
   letter-spacing: -1px;
 }
 
-.dashboard-header p {
+.admin-dashboard-page .dashboard-header p {
   margin: 0;
-  color: #9a9fab;
-  font-size: 14px;
+  color: #969baa;
+  font-size: 15px;
+  line-height: 1.7;
 }
 
-.stats-row {
+/* Statistics */
+
+.admin-dashboard-page .stats-row {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 20px;
+  margin-bottom: 46px;
+}
+
+.admin-dashboard-page .stats-row > * {
+  min-width: 0;
+}
+
+.admin-dashboard-page .stats-row > * > div {
+  min-width: 0;
+}
+
+/* Toolbar */
+
+.admin-dashboard-page .admin-toolbar {
   display: flex;
-  gap: 1.2rem;
-  margin-top: 1.5rem;
+  align-items: center;
+  justify-content: space-between;
   flex-wrap: wrap;
+  gap: 18px;
+  margin-bottom: 22px;
 }
 
-.add-movie-btn {
+.admin-dashboard-page .admin-toolbar h2 {
+  margin: 0;
+  color: #fff;
+  font-size: 23px;
+  font-weight: 800;
+  letter-spacing: -0.5px;
+}
+
+.admin-dashboard-page .admin-toolbar > div {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 12px;
+}
+
+.admin-dashboard-page .admin-refresh-btn,
+.admin-dashboard-page .add-movie-btn {
   display: inline-flex;
   align-items: center;
+  justify-content: center;
   gap: 9px;
-
-  margin-top: 32px;
-  height: 50px;
-  padding: 0 24px;
-
+  min-height: 43px;
+  padding: 0 17px;
+  border: 1px solid #30323d;
   border-radius: 9px;
-  background: linear-gradient(120deg, #ff2b3a, #e50914);
-
-  color: #ffffff;
+  background: #14151c;
+  color: #f4f4f6;
+  font-size: 13px;
+  font-weight: 650;
   text-decoration: none;
+  cursor: pointer;
+  transition: background 0.2s, border-color 0.2s;
+}
+
+.admin-dashboard-page .admin-refresh-btn:hover {
+  background: #22242d;
+  border-color: #505362;
+}
+
+.admin-dashboard-page .admin-refresh-btn:disabled {
+  opacity: 0.55;
+  cursor: not-allowed;
+}
+
+.admin-dashboard-page .add-movie-btn {
+  background: #ff2948;
+  border-color: #ff2948;
+  color: #fff;
+}
+
+.admin-dashboard-page .add-movie-btn:hover {
+  background: #e91f3d;
+  border-color: #e91f3d;
+}
+
+/* Feedback messages */
+
+.admin-dashboard-page .admin-message {
+  margin: 18px 0;
+  padding: 14px 17px;
+  border: 1px solid #30323d;
+  border-radius: 10px;
   font-size: 14px;
-  font-weight: 700;
-
-  transition: 0.25s ease;
 }
 
-.add-movie-btn:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 12px 28px rgba(229, 9, 20, 0.4);
+.admin-dashboard-page .admin-message-error {
+  background: #291319;
+  border-color: #692432;
+  color: #ff9aaa;
 }
 
-@media (max-width: 600px) {
-  .admin-dashboard-page {
-    padding: 100px 16px 40px;
+.admin-dashboard-page .admin-message-success {
+  background: #10251c;
+  border-color: #24583c;
+  color: #8ee3b0;
+}
+
+.admin-dashboard-page .admin-empty-state {
+  padding: 48px 20px;
+  border: 1px solid #242630;
+  border-radius: 14px;
+  background: #101116;
+  color: #999eac;
+  text-align: center;
+}
+
+.admin-dashboard-page .admin-empty-state > i {
+  color: #ff3655;
+  font-size: 35px;
+}
+
+.admin-dashboard-page .admin-empty-state h3 {
+  margin: 14px 0 8px;
+  color: #fff;
+}
+
+.admin-dashboard-page .admin-empty-state p {
+  margin: 0;
+}
+
+/* Table container */
+
+.admin-dashboard-page .admin-table-wrap {
+  width: 100%;
+  overflow-x: auto;
+  border: 1px solid #252731;
+  border-radius: 14px;
+  background: #0e0f14;
+  scrollbar-width: thin;
+  scrollbar-color: #41434e #101116;
+}
+
+.admin-dashboard-page .admin-movie-table {
+  width: 100%;
+  min-width: 850px;
+  border-collapse: collapse;
+  table-layout: auto;
+  text-align: left;
+}
+
+/* Table headings */
+
+.admin-dashboard-page .admin-movie-table thead {
+  background: #14151c;
+}
+
+.admin-dashboard-page .admin-movie-table th {
+  padding: 17px 20px;
+  border-bottom: 1px solid #292b35;
+  color: #a5a9b7;
+  font-size: 12px;
+  font-weight: 750;
+  white-space: nowrap;
+  letter-spacing: 0.2px;
+}
+
+/* Table rows */
+
+.admin-dashboard-page .admin-movie-table td {
+  padding: 15px 20px;
+  border-bottom: 1px solid #20212a;
+  color: #e7e8ed;
+  font-size: 13px;
+  vertical-align: middle;
+}
+
+.admin-dashboard-page .admin-movie-table tbody tr {
+  transition: background 0.18s;
+}
+
+.admin-dashboard-page .admin-movie-table tbody tr:hover {
+  background: #15161d;
+}
+
+.admin-dashboard-page .admin-movie-table tbody tr:last-child td {
+  border-bottom: none;
+}
+
+/* Movie poster and details */
+
+.admin-dashboard-page .admin-movie-info {
+  display: flex;
+  align-items: center;
+  gap: 13px;
+  min-width: 220px;
+}
+
+.admin-dashboard-page .admin-movie-info img {
+  display: block;
+  width: 52px;
+  height: 74px;
+  min-width: 52px;
+  max-width: 52px;
+  object-fit: cover;
+  object-position: center;
+  border-radius: 7px;
+  background: #1a1b23;
+  border: 1px solid #30313a;
+}
+
+.admin-dashboard-page .admin-movie-info > div {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  min-width: 0;
+}
+
+.admin-dashboard-page .admin-movie-info strong {
+  color: #f7f7f9;
+  font-size: 13px;
+  font-weight: 750;
+  line-height: 1.4;
+}
+
+.admin-dashboard-page .admin-movie-info span {
+  max-width: 240px;
+  overflow-wrap: anywhere;
+  color: #969baa;
+  font-size: 12px;
+  line-height: 1.5;
+}
+
+.admin-dashboard-page .admin-movie-table td a:not(.admin-row-actions a) {
+  color: #ff647b;
+  text-decoration: none;
+}
+
+.admin-dashboard-page .admin-movie-table td a:not(.admin-row-actions a):hover {
+  text-decoration: underline;
+}
+
+/* Edit and Delete actions */
+
+.admin-dashboard-page .admin-row-actions {
+  display: flex;
+  align-items: center;
+  flex-wrap: nowrap;
+  gap: 8px;
+}
+
+.admin-dashboard-page .admin-row-actions a,
+.admin-dashboard-page .admin-row-actions button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 38px;
+  padding: 0 13px;
+  border: 1px solid #353742;
+  border-radius: 8px;
+  background: #17181f;
+  color: #f4f4f6;
+  font-family: inherit;
+  font-size: 12px;
+  font-weight: 650;
+  text-decoration: none;
+  white-space: nowrap;
+  cursor: pointer;
+  transition: background 0.2s, border-color 0.2s;
+}
+
+.admin-dashboard-page .admin-row-actions a:hover {
+  background: #262833;
+  border-color: #565866;
+}
+
+.admin-dashboard-page .admin-row-actions button {
+  border-color: #692432;
+  background: rgba(255, 41, 72, 0.06);
+  color: #ff647b;
+}
+
+.admin-dashboard-page .admin-row-actions button:hover {
+  background: rgba(255, 41, 72, 0.16);
+  border-color: #a82b41;
+}
+
+/* Responsive */
+
+@media (max-width: 900px) {
+  .admin-dashboard-page .stats-row {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 14px;
   }
 
-  .dashboard-header h1 {
-    font-size: 24px;
+  .admin-dashboard-page .admin-toolbar {
+    align-items: flex-start;
+    flex-direction: column;
+  }
+
+  .admin-dashboard-page .admin-movie-table {
+    min-width: 820px;
+  }
+}
+
+@media (max-width: 560px) {
+  .admin-dashboard-page {
+    padding: 25px 14px 40px;
+  }
+
+  .admin-dashboard-page .stats-row {
+    grid-template-columns: 1fr;
+    margin-bottom: 32px;
+  }
+
+  .admin-dashboard-page .admin-toolbar h2 {
+    font-size: 21px;
+  }
+
+  .admin-dashboard-page .admin-toolbar > div {
+    width: 100%;
+  }
+
+  .admin-dashboard-page .admin-refresh-btn,
+  .admin-dashboard-page .add-movie-btn {
+    flex: 1;
+    padding: 0 11px;
+  }
+
+  .admin-dashboard-page .admin-table-wrap {
+    border-radius: 10px;
   }
 }

@@ -1,11 +1,9 @@
 .watchlist-page {
   min-height: 100vh;
   padding: 110px 6% 60px;
-
   background:
     radial-gradient(circle at 15% 5%, rgba(229, 9, 20, 0.07), transparent 35%),
     #03050a;
-
   color: #ffffff;
 }
 
@@ -16,13 +14,10 @@
 .movies-eyebrow {
   display: inline-block;
   margin-bottom: 10px;
-
   padding: 5px 12px;
-
   border-radius: 20px;
   background: rgba(229, 9, 20, 0.12);
   border: 1px solid rgba(229, 9, 20, 0.35);
-
   color: #ff6b6b;
   font-size: 11px;
   font-weight: 800;
@@ -34,7 +29,6 @@
   display: flex;
   align-items: center;
   gap: 12px;
-
   margin: 0;
   font-size: 30px;
   font-weight: 800;
@@ -46,6 +40,7 @@
   font-size: 24px;
 }
 
+/* Movie grid */
 .movie-grid {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
@@ -53,23 +48,107 @@
   margin-top: 1.5rem;
 }
 
+.watchlist-grid {
+  align-items: start;
+}
+
+.watchlist-card {
+  position: relative;
+  min-width: 0;
+}
+
+.watchlist-card .movie-card {
+  height: 100%;
+}
+
+/* Remove button */
+.watchlist-remove-btn {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  z-index: 10;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  width: 36px;
+  height: 36px;
+  padding: 0;
+
+  border: 1px solid rgba(255, 255, 255, 0.35);
+  border-radius: 50%;
+
+  background: #e50914;
+  color: #ffffff;
+
+  cursor: pointer;
+  box-shadow: 0 3px 12px rgba(0, 0, 0, 0.4);
+
+  transition: background 0.2s ease, transform 0.2s ease;
+}
+
+.remove-cross {
+  display: block;
+  color: #ffffff;
+  font-family: Arial, sans-serif;
+  font-size: 28px;
+  font-weight: 400;
+  line-height: 1;
+}
+
+.watchlist-remove-btn:hover {
+  background: #ff2633;
+  transform: scale(1.08);
+}
+
+.watchlist-remove-btn:disabled {
+  opacity: 0.6;
+  cursor: wait;
+  transform: none;
+}
+.watchlist-remove-loading {
+  font-size: 22px;
+  line-height: 1;
+}
+
+/* Success and error messages */
+.watchlist-message {
+  margin: 16px 0;
+  padding: 12px 16px;
+  border-radius: 8px;
+  font-size: 14px;
+  line-height: 1.5;
+}
+
+.watchlist-message-error {
+  color: #ff8a91;
+  background: rgba(229, 9, 20, 0.1);
+  border: 1px solid rgba(229, 9, 20, 0.3);
+}
+
+.watchlist-message-success {
+  color: #8de8b0;
+  background: rgba(45, 180, 100, 0.1);
+  border: 1px solid rgba(45, 180, 100, 0.3);
+}
+
+/* Empty watchlist */
 .watchlist-empty {
   display: flex;
   flex-direction: column;
   align-items: center;
   gap: 10px;
-
   padding: 90px 20px;
-
   color: #6b7280;
   text-align: center;
 }
 
 .watchlist-empty i {
-  font-size: 44px;
-  color: #e50914;
-  opacity: 0.6;
   margin-bottom: 6px;
+  color: #e50914;
+  font-size: 44px;
+  opacity: 0.6;
 }
 
 .watchlist-empty p {
@@ -83,6 +162,27 @@
   font-size: 13px;
 }
 
+.watchlist-browse-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  margin-top: 16px;
+  padding: 11px 18px;
+  border: 1px solid #e50914;
+  border-radius: 8px;
+  background: #e50914;
+  color: #ffffff;
+  font-weight: 700;
+  text-decoration: none;
+  transition: background 0.2s ease;
+}
+
+.watchlist-browse-btn:hover {
+  background: #ff2633;
+  color: #ffffff;
+}
+
+/* Responsive layout */
 @media (max-width: 600px) {
   .watchlist-page {
     padding: 100px 16px 40px;
@@ -90,5 +190,27 @@
 
   .watchlist-header h1 {
     font-size: 24px;
+  }
+
+  .movie-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 14px;
+  }
+
+  .watchlist-remove-btn {
+    top: 8px;
+    right: 8px;
+    width: 32px;
+    height: 32px;
+  }
+
+  .watchlist-empty {
+    padding: 65px 15px;
+  }
+}
+
+@media (max-width: 360px) {
+  .movie-grid {
+    grid-template-columns: minmax(0, 1fr);
   }
 }

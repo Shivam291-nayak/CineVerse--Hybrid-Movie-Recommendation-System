@@ -1,158 +1,267 @@
+
+/* =========================================
+   CineVerse - Add New Movie
+   ========================================= */
+
 .add-movie-page {
   min-height: 100vh;
-  padding: 110px 6% 60px;
-
+  padding: 36px 24px 64px;
+  color: #f5f5f7;
   background:
-    radial-gradient(circle at 15% 5%, rgba(229, 9, 20, 0.07), transparent 35%),
-    #03050a;
-
-  color: #ffffff;
+    radial-gradient(
+      ellipse at 50% 0%,
+      rgba(255, 41, 72, 0.07),
+      transparent 48%
+    ),
+    #08090d;
+  box-sizing: border-box;
 }
+
+.add-movie-page *,
+.add-movie-page *::before,
+.add-movie-page *::after {
+  box-sizing: border-box;
+}
+
+/* Page heading */
 
 .add-movie-header {
-  max-width: 560px;
-  margin-bottom: 30px;
+  width: 100%;
+  max-width: 960px;
+  margin: 0 auto 28px;
 }
 
-.movies-eyebrow {
+.add-movie-header .movies-eyebrow {
   display: inline-block;
-  margin-bottom: 10px;
-
-  padding: 5px 12px;
-
-  border-radius: 20px;
-  background: rgba(229, 9, 20, 0.12);
-  border: 1px solid rgba(229, 9, 20, 0.35);
-
-  color: #ff6b6b;
-  font-size: 11px;
+  margin-bottom: 12px;
+  color: #ff3655;
+  font-size: 12px;
   font-weight: 800;
-  letter-spacing: 1.4px;
+  letter-spacing: 1.8px;
   text-transform: uppercase;
 }
 
 .add-movie-header h1 {
-  margin: 0 0 6px;
-  font-size: 28px;
+  margin: 0 0 12px;
+  color: #fff;
+  font-size: clamp(28px, 3vw, 36px);
   font-weight: 800;
-  letter-spacing: -1px;
+  line-height: 1.2;
+  letter-spacing: -0.8px;
 }
 
 .add-movie-header p {
   margin: 0;
-  color: #9a9fab;
+  color: #999eac;
   font-size: 14px;
+  line-height: 1.7;
 }
 
-.auth-error {
-  display: flex;
-  align-items: center;
-  gap: 8px;
-
-  max-width: 560px;
-  margin: 0 0 20px;
-  padding: 10px 12px;
-
-  border-radius: 8px;
-  background: rgba(229, 9, 20, 0.1);
-  border: 1px solid rgba(229, 9, 20, 0.3);
-
-  color: #ff6b6b;
-  font-size: 13px;
-}
+/* Form panel */
 
 .add-movie-form {
+  width: 100%;
+  max-width: 960px;
+  margin: 0 auto;
+  padding: 30px;
+  background: #101116;
+  border: 1px solid #292b35;
+  border-radius: 16px;
+  box-shadow: 0 18px 55px rgba(0, 0, 0, 0.2);
+}
+
+/* Direct-child labels */
+
+.add-movie-form > label {
   display: flex;
   flex-direction: column;
-  gap: 14px;
-
-  max-width: 560px;
-
-  padding: 28px;
-
-  background: rgba(255, 255, 255, 0.03);
-  border: 1px solid rgba(255, 255, 255, 0.08);
-  border-radius: 16px;
+  gap: 9px;
+  min-width: 0;
+  margin-bottom: 22px;
+  color: #e8e9ee;
+  font-size: 13px;
+  font-weight: 700;
+  line-height: 1.5;
 }
 
-.add-movie-form-row {
-  display: flex;
-  gap: 14px;
+.add-movie-form > label > span {
+  color: #8e93a2;
+  font-size: 12px;
+  font-weight: 400;
 }
 
-.add-movie-form-row input {
-  flex: 1;
-}
+/* Inputs and textarea */
 
 .add-movie-form input,
 .add-movie-form textarea {
-  padding: 13px 16px;
-
+  display: block;
+  width: 100%;
+  min-width: 0;
+  min-height: 46px;
+  padding: 12px 14px;
+  border: 1px solid #30323d;
   border-radius: 9px;
-  border: 1px solid rgba(255, 255, 255, 0.12);
-  background: rgba(0, 0, 0, 0.35);
-
-  color: #ffffff;
-  font-size: 14px;
+  outline: none;
+  background: #090a0f;
+  color: #f5f5f7;
   font-family: inherit;
+  font-size: 14px;
+  font-weight: 400;
+  line-height: 1.5;
+  transition: border-color 0.2s, box-shadow 0.2s;
+}
 
-  transition: border-color 0.2s ease, box-shadow 0.2s ease;
+.add-movie-form textarea {
+  min-height: 125px;
+  resize: vertical;
 }
 
 .add-movie-form input::placeholder,
 .add-movie-form textarea::placeholder {
-  color: #6f7484;
+  color: #777c8a;
+  opacity: 1;
 }
 
 .add-movie-form input:focus,
 .add-movie-form textarea:focus {
-  outline: none;
-  border-color: #e50914;
-  box-shadow: 0 0 0 4px rgba(229, 9, 20, 0.14);
+  border-color: #ff3655;
+  box-shadow: 0 0 0 3px rgba(255, 41, 72, 0.12);
 }
 
-.add-movie-form textarea {
-  min-height: 110px;
-  resize: vertical;
+.add-movie-form input:disabled,
+.add-movie-form textarea:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
 }
 
-.add-movie-form button {
+/* Two-column field rows - matches your JSX */
+
+.add-movie-form .add-movie-form-row {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 22px;
+  margin-bottom: 0;
+}
+
+.add-movie-form .add-movie-form-row > label {
   display: flex;
+  flex-direction: column;
+  gap: 9px;
+  min-width: 0;
+  margin-bottom: 22px;
+  color: #e8e9ee;
+  font-size: 13px;
+  font-weight: 700;
+  line-height: 1.5;
+}
+
+/* Poster preview */
+
+.add-movie-form .movie-poster-preview {
+  display: flex;
+  align-items: flex-start;
+  flex-direction: column;
+  gap: 12px;
+  margin: 8px 0 26px;
+  padding: 18px;
+  border: 1px solid #292b35;
+  border-radius: 12px;
+  background: #0b0c11;
+}
+
+.add-movie-form .movie-poster-preview > span {
+  color: #c4c7d1;
+  font-size: 13px;
+  font-weight: 700;
+}
+
+.add-movie-form .movie-poster-preview img {
+  display: block;
+  width: 120px;
+  max-width: 100%;
+  height: 175px;
+  object-fit: cover;
+  object-position: center;
+  border: 1px solid #30323d;
+  border-radius: 8px;
+  background: #17181f;
+}
+
+/* Add Movie button */
+
+.add-movie-form > button[type="submit"] {
+  display: inline-flex;
   align-items: center;
   justify-content: center;
-  gap: 8px;
-
-  height: 50px;
-  margin-top: 6px;
-
-  border: none;
+  gap: 10px;
+  width: 100%;
+  min-height: 48px;
+  margin-top: 4px;
+  padding: 12px 20px;
+  border: 1px solid #ff2948;
   border-radius: 9px;
-
-  background: linear-gradient(120deg, #ff2b3a, #e50914);
-  color: #ffffff;
-
-  font-size: 15px;
-  font-weight: 700;
-
+  background: #ff2948;
+  color: #fff;
+  font-family: inherit;
+  font-size: 14px;
+  font-weight: 750;
   cursor: pointer;
-  transition: 0.25s ease;
+  transition: background 0.2s, border-color 0.2s;
 }
 
-.add-movie-form button:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 12px 28px rgba(229, 9, 20, 0.4);
+.add-movie-form > button[type="submit"]:hover {
+  background: #e91f3d;
+  border-color: #e91f3d;
 }
 
-@media (max-width: 600px) {
+.add-movie-form > button[type="submit"]:disabled {
+  opacity: 0.65;
+  cursor: not-allowed;
+}
+
+/* Error message */
+
+.add-movie-page > .auth-error {
+  width: 100%;
+  max-width: 960px;
+  margin: 0 auto 20px;
+  padding: 13px 16px;
+  border: 1px solid #692432;
+  border-radius: 9px;
+  background: #291319;
+  color: #ff9aaa;
+  font-size: 13px;
+  line-height: 1.6;
+}
+
+/* Responsive layout */
+
+@media (max-width: 640px) {
   .add-movie-page {
-    padding: 100px 16px 40px;
+    padding: 26px 14px 42px;
+  }
+
+  .add-movie-header {
+    margin-bottom: 22px;
   }
 
   .add-movie-form {
-    padding: 20px;
+    padding: 21px 16px;
+    border-radius: 12px;
   }
 
-  .add-movie-form-row {
-    flex-direction: column;
+  .add-movie-form .add-movie-form-row {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 0;
+  }
+
+  .add-movie-form > label,
+  .add-movie-form .add-movie-form-row > label {
+    margin-bottom: 19px;
+  }
+
+  .add-movie-form .movie-poster-preview img {
+    width: 105px;
+    height: 155px;
   }
 }

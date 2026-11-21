@@ -12,7 +12,8 @@ import AdminDashboard from '../pages/AdminDashboard/AdminDashboard.jsx'
 import AddMovie from '../pages/AddMovie/AddMovie.jsx'
 import NotFound from '../pages/NotFound/NotFound.jsx'
 import ProtectedRoute from '../components/ProtectedRoute/ProtectedRoute.jsx'
-
+import EditMovie from '../pages/EditMovie/EditMovie.jsx'
+import TVShows from '../pages/TVShows/TVShows.jsx'
 function AppRoutes() {
   return (
     <Routes>
@@ -22,7 +23,7 @@ function AppRoutes() {
       <Route path="/movies" element={<Movies />} />
       <Route path="/movies/:id" element={<MovieDetails />} />
       <Route path="/admin/login" element={<AdminLogin />} />
-
+      <Route path="/tv-shows" element={<TVShows />} />
       <Route
         path="/dashboard"
         element={
@@ -63,6 +64,15 @@ function AppRoutes() {
           </ProtectedRoute>
         }
       />
+
+      <Route
+  path="/admin/edit-movie/:id"
+  element={
+    <ProtectedRoute adminOnly>
+      <EditMovie />
+    </ProtectedRoute>
+  }
+/>
 
       <Route path="*" element={<NotFound />} />
     </Routes>

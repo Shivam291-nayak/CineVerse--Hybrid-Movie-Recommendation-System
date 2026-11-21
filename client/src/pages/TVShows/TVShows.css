@@ -1,0 +1,56 @@
+
+.tv-shows-page {
+  min-height: 75vh;
+  padding: 55px 6% 70px;
+  background: #03050a;
+  color: #fff;
+}
+
+.tv-shows-header {
+  margin-bottom: 38px;
+  text-align: center;
+}
+
+.tv-shows-header h1 {
+  margin: 15px 0 10px;
+  font-size: clamp(32px, 4vw, 48px);
+  font-weight: 900;
+}
+
+.tv-shows-header p {
+  color: #a5aaba;
+  font-size: 15px;
+}
+
+.tv-shows-grid {
+  display: grid;
+  grid-template-columns: repeat(6, minmax(0, 1fr));
+  gap: 20px;
+}
+
+.tv-shows-grid > * {
+  min-width: 0;
+}
+
+.tv-shows-message {
+  padding: 35px 0;
+  color: #a5aaba;
+  text-align: center;
+}
+
+@media (max-width: 1100px) {
+  .tv-shows-grid {
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+  }
+}
+
+@media (max-width: 700px) {
+  .tv-shows-page {
+    padding: 35px 5%;
+  }
+
+  .tv-shows-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 14px;
+  }
+}

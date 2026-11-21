@@ -1,0 +1,145 @@
+
+.movie-rating {
+  position: relative;
+  width: 100%;
+  max-width: 760px;
+  box-sizing: border-box;
+  margin: 24px 0;
+  padding: 20px;
+  display: grid;
+  grid-template-columns: minmax(150px, 0.8fr) minmax(260px, 1.2fr);
+  align-items: center;
+  gap: 20px;
+  color: #f4f5f8;
+  background: rgba(12, 15, 24, 0.92);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  border-radius: 14px;
+}
+
+.movie-rating-summary {
+  min-width: 0;
+}
+
+.movie-rating-label {
+  display: block;
+  margin-bottom: 8px;
+  color: #a5aaba;
+  font-size: 12px;
+  line-height: 1.5;
+}
+
+.movie-rating-summary strong {
+  display: block;
+  color: #ffd43b;
+  font-size: 29px;
+  line-height: 1.2;
+}
+
+.movie-rating-summary strong small {
+  margin-left: 4px;
+  color: #a5aaba;
+  font-size: 13px;
+}
+
+.movie-rating-summary p {
+  margin: 7px 0 0;
+  color: #a5aaba;
+  font-size: 12px;
+}
+
+.movie-rating-input {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  align-items: center;
+  gap: 10px;
+  min-width: 0;
+}
+
+.movie-rating-input label {
+  grid-column: 1 / -1;
+  color: #d8dbe4;
+  font-size: 13px;
+  font-weight: 700;
+}
+
+.movie-rating-input select,
+.movie-rating-input button {
+  min-width: 0;
+  min-height: 42px;
+  box-sizing: border-box;
+  padding: 9px 12px;
+  border: 1px solid rgba(255, 255, 255, 0.16);
+  border-radius: 8px;
+  font: inherit;
+  font-size: 12px;
+}
+
+.movie-rating-input select {
+  width: 100%;
+  color: #fff;
+  background: #10131b;
+}
+
+.movie-rating-input button {
+  color: #fff;
+  background: #e50914;
+  border-color: #e50914;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.movie-rating-input button:hover:not(:disabled) {
+  background: #ff2634;
+}
+
+.movie-rating-input button:disabled {
+  opacity: 0.55;
+  cursor: not-allowed;
+}
+
+.movie-rating-input p {
+  grid-column: 1 / -1;
+  margin: 0;
+  color: #b9bdc8;
+  font-size: 12px;
+}
+
+.movie-rating-input a {
+  color: #ff777f;
+}
+
+.movie-rating-success,
+.movie-rating-error {
+  grid-column: 1 / -1;
+  margin: 0;
+  font-size: 12px;
+  line-height: 1.5;
+}
+
+.movie-rating-success {
+  color: #8de8b0;
+}
+
+.movie-rating-error {
+  color: #ff8a91;
+}
+
+@media (max-width: 700px) {
+  .movie-rating {
+    grid-template-columns: 1fr;
+    gap: 18px;
+    padding: 16px;
+  }
+
+  .movie-rating-input {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .movie-rating-input label {
+    grid-column: auto;
+  }
+
+  .movie-rating-input button {
+    width: 100%;
+  }
+}

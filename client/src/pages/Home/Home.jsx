@@ -1,299 +1,283 @@
-import { useEffect, useState } from "react";
-import { Link, useNavigate } from "react-router-dom";
-import MovieCard from "../../components/MovieCard/MovieCard.jsx";
-import Loader from "../../components/Loader/Loader.jsx";
-import api from "../../services/api.js";
-import "./Home.css";
 
-const SEARCH_SUGGESTIONS = [
-  "Search for movies...",
-  "Search \"Action\"...",
-  "Search \"Comedy\"...",
-  "Search \"Sci-Fi\"...",
-  "Search your next favorite...",
-];
+import { useEffect, useState } from 'react'
+import { Link } from 'react-router-dom'
+import api from '../../services/api.js'
+import './Home.css'
+
+const PLACEHOLDER =
+  'https://placehold.co/300x450/12151f/ffffff?text=No+Poster'
 
 function Home() {
-  const [movies, setMovies] = useState([]);
-  const [loading, setLoading] = useState(true);
-  const [heroSearch, setHeroSearch] = useState("");
-  const [placeholderIndex, setPlaceholderIndex] = useState(0);
-  const navigate = useNavigate();
+  const [movies, setMovies] = useState([])
+  const [recommendations, setRecommendations] = useState([])
+  const [loading, setLoading] = useState(true)
+  const [recommendationLoading, setRecommendationLoading] = useState(true)
+  const [error, setError] = useState('')
 
   useEffect(() => {
-    const interval = setInterval(() => {
-      setPlaceholderIndex((prev) => (prev + 1) % SEARCH_SUGGESTIONS.length);
-    }, 2600);
+    let active = true
 
-    return () => clearInterval(interval);
-  }, []);
-
-  const handleHeroSearch = (e) => {
-    e.preventDefault();
-
-    if (!heroSearch.trim()) return;
-
-    navigate(`/movies?search=${encodeURIComponent(heroSearch.trim())}`);
-  };
-
-  useEffect(() => {
     const fetchMovies = async () => {
       try {
-        const response = await api.get("/movies?limit=30");
+        const { data } = await api.get('/movies?limit=48')
 
-        const data = response.data.movies || response.data || [];
+        const movieList = Array.isArray(data)
+          ? data
+          : Array.isArray(data.movies)
+            ? data.movies
+            : []
 
-        setMovies(data);
-      } catch (error) {
-        console.error("Failed to fetch movies:", error);
+        if (active) setMovies(movieList)
+      } catch (err) {
+        if (active) {
+          setError(err.response?.data?.message || 'Unable to load movies.')
+        }
       } finally {
-        setLoading(false);
+        if (active) setLoading(false)
       }
-    };
+    }
 
-    fetchMovies();
-  }, []);
+    const fetchRecommendations = async () => {
+      try {
+        const { data } = await api.get('/hybrid')
 
-  const trendingMovies = movies.slice(0, 8);
+        if (active) {
+          setRecommendations(data.recommendations || [])
+        }
+      } catch (err) {
+        console.error('Hybrid recommendation error:', err)
+      } finally {
+        if (active) setRecommendationLoading(false)
+      }
+    }
 
-  const popularMovies = [...movies]
+    fetchMovies()
+    fetchRecommendations()
+
+    return () => {
+      active = false
+    }
+  }, [])
+
+  const featuredMovie = movies[0]
+
+  const trendingMovies = [...movies]
     .sort(
       (a, b) =>
-        Number(b.imdbRating || 0) -
-        Number(a.imdbRating || 0)
+        Number(b.imdbRating ?? b.rating ?? 0) -
+        Number(a.imdbRating ?? a.rating ?? 0)
     )
-    .slice(0, 8);
+    .slice(0, 8)
 
-  const topRatedMovies = [...movies]
-    .sort(
-      (a, b) =>
-        Number(b.imdbRating || 0) -
-        Number(a.imdbRating || 0)
-    )
-    .slice(0, 8);
+  const popularMovies = movies.slice(0, 12)
 
-  const heroMovie = movies[0];
+  const getRating = (movie) => {
+    const rating = movie.imdbRating ?? movie.rating
+    return rating != null && rating !== '' && Number(rating) > 0
+  ? Number(rating).toFixed(1)
+  : 'N/A'
+  }
+
+  const MovieCard = ({ movie }) => (
+    <Link
+      to={`/movies/${movie._id}`}
+      className="home-movie-card"
+    >
+      <div className="home-movie-poster">
+        <img
+          src={movie.poster || PLACEHOLDER}
+          alt={`${movie.title} poster`}
+          loading="lazy"
+          onError={(event) => {
+            event.currentTarget.onerror = null
+            event.currentTarget.src = PLACEHOLDER
+          }}
+        />
+        <span className="home-movie-rating">
+          ★ {getRating(movie)}
+        </span>
+      </div>
+
+      <div className="home-movie-info">
+        <h3>{movie.title}</h3>
+        <p>
+          {movie.releaseYear || 'Year unavailable'}
+          {' · '}
+          {Array.isArray(movie.genre)
+            ? movie.genre.slice(0, 2).join(', ')
+            : movie.genre || 'Movie'}
+        </p>
+      </div>
+    </Link>
+  )
 
   if (loading) {
     return (
-      <div className="home-loading">
-        <Loader />
+      <div className="home-status">
+        <p>Loading CineVerse...</p>
       </div>
-    );
+    )
+  }
+
+  if (error) {
+    return (
+      <div className="home-status">
+        <h2>Unable to load CineVerse</h2>
+        <p>{error}</p>
+        <button onClick={() => window.location.reload()}>
+          Try Again
+        </button>
+      </div>
+    )
+  }
+
+  if (!movies.length) {
+    return (
+      <div className="home-status">
+        <h2>Welcome to CineVerse</h2>
+        <p>No movies available.</p>
+        <Link to="/movies">Explore Movies</Link>
+      </div>
+    )
   }
 
   return (
-    <main className="cg-home">
+    <div className="home-page">
 
-      {/* STANDALONE SEARCH HEADER - always visible regardless of data */}
-      <section className="cg-home-search-section">
-        <div className="cg-home-search-inner">
-          <h1 className="cg-home-search-title">
-            Find your next <span>favorite</span>
-          </h1>
-          <p className="cg-home-search-subtitle">
-            Unlimited movies, TV shows, and more.
-          </p>
-
-          <form className="hero-search cg-home-search" onSubmit={handleHeroSearch}>
-            <i className="bi bi-search"></i>
-            <input
-              type="text"
-              value={heroSearch}
-              onChange={(e) => setHeroSearch(e.target.value)}
-              placeholder={SEARCH_SUGGESTIONS[placeholderIndex]}
-              key={placeholderIndex}
-              aria-label="Search movies and shows"
-            />
-            <button type="submit">Search</button>
-          </form>
-        </div>
-      </section>
-
-      {/* HERO */}
-      {heroMovie && (
+      {featuredMovie && (
         <section
-          className="cg-hero"
+          className="home-hero"
           style={{
-            backgroundImage: `
-              linear-gradient(
-                90deg,
-                rgba(3,5,10,1) 0%,
-                rgba(3,5,10,0.94) 28%,
-                rgba(3,5,10,0.55) 55%,
-                rgba(3,5,10,0.15) 100%
-              ),
-              linear-gradient(
-                0deg,
-                #03050a 0%,
-                transparent 35%
-              ),
-              url(${heroMovie.backdrop || heroMovie.poster})
-            `,
+            backgroundImage: `linear-gradient(90deg, rgba(5,8,16,.96), rgba(5,8,16,.2)), linear-gradient(0deg, #050810, transparent 45%), url("${featuredMovie.backdrop || featuredMovie.poster || ''}")`
           }}
         >
+          <div className="home-hero-content">
+            <span className="home-eyebrow">
+              CINEVERSE ORIGINAL DISCOVERY
+            </span>
 
-          <div className="hero-content">
+            <h1>{featuredMovie.title}</h1>
 
-            <div className="hero-badge">
-              FEATURED MOVIE
+            <div className="home-hero-meta">
+              <span>{featuredMovie.releaseYear}</span>
+              <span>★ {getRating(featuredMovie)}</span>
+              <span>
+                {Array.isArray(featuredMovie.genre)
+                  ? featuredMovie.genre.join(' / ')
+                  : featuredMovie.genre}
+              </span>
             </div>
 
-            <h1 className="hero-title">
-              {heroMovie.title}
-            </h1>
-
-            <div className="hero-meta">
-
-              <span className="rating">
-                <i className="bi bi-star-fill"></i>
-                {heroMovie.imdbRating || "N/A"}
-              </span>
-
-              <span>
-                {heroMovie.releaseYear || "2024"}
-              </span>
-
-              <span>
-                {heroMovie.duration || "2h 10m"}
-              </span>
-
-              <span>
-                {heroMovie.genre || "Drama"}
-              </span>
-
-            </div>
-
-            <p className="hero-description">
-              {heroMovie.story ||
-                heroMovie.description ||
-                heroMovie.overview ||
-                "Discover an unforgettable cinematic experience with CineGalaxy."}
+            <p className="home-hero-description">
+              {featuredMovie.description ||
+                'Discover your next favorite movie with CineVerse.'}
             </p>
 
-            <div className="hero-buttons">
-
+            <div className="home-hero-actions">
               <Link
-                to={`/movie/${heroMovie._id}`}
-                className="watch-button"
+                to={`/movies/${featuredMovie._id}`}
+                className="home-primary-button"
               >
-                <i className="bi bi-play-fill"></i>
-                Watch Now
+                ▶ Watch Details
               </Link>
 
-              <button className="my-list-button">
-                <i className="bi bi-plus-lg"></i>
-                My List
-              </button>
-
+              <Link
+                to="/movies"
+                className="home-secondary-button"
+              >
+                Explore Movies
+              </Link>
             </div>
-
           </div>
-
-          <div className="hero-age">
-            U/A 13+
-          </div>
-
-          <div className="hero-arrows">
-
-            <button>
-              <i className="bi bi-chevron-left"></i>
-            </button>
-
-            <button>
-              <i className="bi bi-chevron-right"></i>
-            </button>
-
-          </div>
-
-          <div className="hero-dots">
-            <span className="active"></span>
-            <span></span>
-            <span></span>
-            <span></span>
-          </div>
-
         </section>
       )}
 
-      {/* MOVIE SECTIONS */}
+      <div className="home-content">
 
-      <div className={`cg-content${!heroMovie ? " no-hero" : ""}`}>
-
-        {movies.length === 0 ? (
-          <div className="cg-home-empty">
-            <i className="bi bi-film"></i>
-            <h3>No movies to show yet</h3>
-            <p>We couldn't load the catalog. Check that your backend/API is running, or try searching above.</p>
+        {/* HYBRID RECOMMENDATIONS */}
+        <section className="home-movie-section">
+          <div className="home-section-heading">
+            <div>
+              <span className="home-eyebrow">
+                AI POWERED FOR YOU
+              </span>
+              <h2>Recommended For You</h2>
+            </div>
           </div>
-        ) : (
-          <>
-            <MovieSection
-              title="Trending Now"
-              icon="bi-fire"
-              movies={trendingMovies}
-            />
 
-            <MovieSection
-              title="Popular Movies"
-              icon="bi-star-fill"
-              movies={popularMovies}
-            />
+          {recommendationLoading ? (
+            <p className="home-recommendation-status">
+              Finding movies for you...
+            </p>
+          ) : recommendations.length > 0 ? (
+            <>
+              <p className="home-recommendation-subtitle">
+                Personalized recommendations powered by our Hybrid
+                Recommendation Engine.
+              </p>
 
-            <MovieSection
-              title="Top Rated"
-              icon="bi-trophy-fill"
-              movies={topRatedMovies}
-            />
-          </>
-        )}
+              <div className="home-movie-grid">
+                {recommendations.map((item) => (
+                  <div
+                    className="home-recommendation-card"
+                    key={item.movie._id}
+                  >
+                    <MovieCard movie={item.movie} />
+
+                    <div className="home-hybrid-score">
+                      <span>Hybrid Match</span>
+                      <strong>
+                        {Number(item.hybridScore).toFixed(1)} / 5
+                      </strong>
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </>
+          ) : (
+            <p className="home-recommendation-status">
+              Rate some movies to receive personalized recommendations.
+            </p>
+          )}
+        </section>
+
+        {/* TRENDING */}
+        <section className="home-movie-section">
+          <div className="home-section-heading">
+            <div>
+              <span className="home-eyebrow">WHAT'S HOT</span>
+              <h2>Trending Now</h2>
+            </div>
+            <Link to="/movies">View All →</Link>
+          </div>
+
+          <div className="home-movie-grid">
+            {trendingMovies.map((movie) => (
+              <MovieCard key={movie._id} movie={movie} />
+            ))}
+          </div>
+        </section>
+
+        {/* POPULAR */}
+        <section className="home-movie-section">
+          <div className="home-section-heading">
+            <div>
+              <span className="home-eyebrow">DISCOVER MORE</span>
+              <h2>Popular Movies</h2>
+            </div>
+            <Link to="/movies">Explore All →</Link>
+          </div>
+
+          <div className="home-movie-grid">
+            {popularMovies.map((movie) => (
+              <MovieCard key={movie._id} movie={movie} />
+            ))}
+          </div>
+        </section>
 
       </div>
-
-    </main>
-  );
+    </div>
+  )
 }
 
-function MovieSection({ title, icon, movies }) {
-  if (!movies.length) return null;
-
-  return (
-    <section className="movie-section">
-
-      <div className="section-header">
-
-        <div className="section-heading">
-          <span className="section-line"></span>
-
-          <h2>
-            <i className={`bi ${icon}`}></i>
-            {title}
-          </h2>
-        </div>
-
-        <Link to="/movies" className="view-all">
-          View All
-          <i className="bi bi-arrow-right"></i>
-        </Link>
-
-      </div>
-
-      <div className="movie-row">
-
-        {movies.map((movie) => (
-          <div className="movie-item" key={movie._id}>
-            <MovieCard movie={movie} />
-          </div>
-        ))}
-
-        <button className="row-next">
-          <i className="bi bi-chevron-right"></i>
-        </button>
-
-      </div>
-
-    </section>
-  );
-}
-
-export default Home;
+export default Home
